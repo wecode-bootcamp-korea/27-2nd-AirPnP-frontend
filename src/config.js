@@ -1,7 +1,5 @@
-import React from 'react';
+const BASE_URL = '';
 
-function config() {
-  return <div />;
-}
+const API_CONFIG = {};
 
-export default config;
+export default API_CONFIG;
