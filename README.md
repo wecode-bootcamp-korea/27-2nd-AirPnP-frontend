@@ -1,4 +1,5 @@
-# Getting Started with Create React App
+# 27th airpnp Frontend
+- 에어비앤비 클론 프로젝트
 
 ### Introduce
 - 지역에 내가 원하는 재능을 가진 사람의 시간을 빌리는 서비스
