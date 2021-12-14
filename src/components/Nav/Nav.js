@@ -1,12 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { BiSearch } from 'react-icons/bi';
 import { IoMenuOutline } from 'react-icons/io5';
 import ExtendedSearchBar from './ExtendedSearchBar/ExtendedSearchBar';
+import Login from '../../pages/Login/Login';
 
 const Nav = () => {
   const [isMenuExtend, setIsMenuExtend] = useState(false);
   const [isSearchExtend, setIsSearchExtend] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const modalClose = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+  const token = localStorage.getItem('token') || '';
+
+  useEffect(() => {
+    setIsModalOpen(false);
+  }, [token]);
+
+  const onLogout = () => {
+    localStorage.removeItem('token');
+    alert('로그아웃이 되었습니다.');
+  };
 
   return (
     <>
@@ -24,6 +39,7 @@ const Nav = () => {
           </SearchButton>
         </SearchContainer>
         {isSearchExtend && <ExtendedSearchBar />}
+        {isModalOpen && <Login modalClose={modalClose} />}
         <MenuContainer>
           <ToHost>호스트 등록</ToHost>
           <ExtentionMenu onClick={() => setIsMenuExtend(prev => !prev)}>
@@ -32,7 +48,17 @@ const Nav = () => {
             {isMenuExtend && (
               <AppearedMenu>
                 <MenuList>
-                  <LoginListElement>로그인</LoginListElement>
+                  {!token ? (
+                    <LoginListElement
+                      onClick={() => setIsModalOpen(prev => !prev)}
+                    >
+                      로그인
+                    </LoginListElement>
+                  ) : (
+                    <LoginListElement onClick={onLogout}>
+                      로그아웃
+                    </LoginListElement>
+                  )}
                   <ListElement>호스트 등록</ListElement>
                   <ListElement>마이페이지</ListElement>
                 </MenuList>
