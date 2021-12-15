@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import CheckboxShell from '../CheckboxShell/CheckboxShell';
 import Checkbox from '../Checkbox/Checkbox';
 import styled from 'styled-components';
 
 const CheckboxWrap = ({ value, selectedTalent, filterList }) => {
-  const [selectedCategory, setSelectedCategory] = useState();
-
   return (
     <TalentTypeWrap>
       {selectedTalent === value && (
@@ -15,7 +13,6 @@ const CheckboxWrap = ({ value, selectedTalent, filterList }) => {
               <Checkbox
                 key={talent.id}
                 talent={talent}
-                setSelectedCategory={setSelectedCategory}
                 filterList={filterList}
               />
             ))}

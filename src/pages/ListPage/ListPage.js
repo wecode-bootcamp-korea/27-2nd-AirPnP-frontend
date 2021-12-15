@@ -6,23 +6,30 @@ import RightKeywordButton from './RightKeywordButton/RightKeywordButton';
 import ContentBox from './ContentBox/ContentBox';
 import Pagination from './Pagination/Pagination';
 import Map from '../../components/Map/Map';
+import { useLocation } from 'react-router-dom';
+import API_CONFIG from '../../config';
+import queryString from 'query-string';
 
 const LIMIT = 10;
-
 function ListPage() {
   const [posts, setPosts] = useState([]);
   const [filteredPost, setFilteredPost] = useState([]);
   const [page, setPage] = useState(1);
+  const location = useLocation();
   const offset = (page - 1) * LIMIT;
+  const { category, start, end, term } = queryString.parse(location.search);
 
   useEffect(() => {
-    fetch('/Data/ContentBox.json')
+    fetch(
+      API_CONFIG.HOST_LIST +
+        `?category=${category}&start_date=${start}&end_date=${end}`
+    )
       .then(res => res.json())
       .then(res => {
-        setPosts(res);
-        setFilteredPost(res);
+        setPosts(res.RESULT);
+        setFilteredPost(res.RESULT);
       });
-  }, []);
+  }, [location]);
 
   const filterList = category => {
     setFilteredPost(posts.filter(post => post.category === category));
@@ -30,25 +37,31 @@ function ListPage() {
 
   return (
     <ListPageContainer>
-      <LeftSection>
-        <HeaderBox>
-          <LeftKeywordButton filterList={filterList} />
-          <RightLine />
-          <RightKeywordButton />
-        </HeaderBox>
-        <ContentBox
-          contentBoxArea={filteredPost}
-          offset={offset}
-          limit={LIMIT}
-        />
-        <Pagination
-          total={filteredPost.length}
-          limit={LIMIT}
-          page={page}
-          setPage={setFilteredPost}
-        />
-      </LeftSection>
-      <Map />
+      {posts.length && (
+        <LeftSection>
+          <HeaderBox>
+            <LeftKeywordButton filterList={filterList} />
+            <RightLine />
+            <RightKeywordButton />
+          </HeaderBox>
+          <ContentBox
+            contentBoxArea={filteredPost}
+            offset={offset}
+            limit={LIMIT}
+            posts={posts}
+            term={term}
+          />
+          <Pagination
+            total={filteredPost.length}
+            limit={LIMIT}
+            page={page}
+            setPage={setPage}
+          />
+        </LeftSection>
+      )}
+      <MapWrap>
+        <Map />
+      </MapWrap>
     </ListPageContainer>
   );
 }
@@ -58,9 +71,8 @@ const ListPageContainer = styled.div`
 `;
 
 const LeftSection = styled.div`
-  align-content: stretch;
   z-index: 2;
-  min-width: 840px;
+  width: 840px;
   background: ${({ theme }) => theme.white};
   flex-grow: 0;
   flex-shrink: 0;
@@ -82,6 +94,11 @@ const RightLine = styled.div`
   margin-left: 8px;
   border-left: 1px solid ${({ theme }) => theme.lightGray};
   margin-top: 10px;
+`;
+
+const MapWrap = styled.div`
+  width: 100vw;
+  width: 100vw;
 `;
 
 export default ListPage;

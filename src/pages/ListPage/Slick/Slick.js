@@ -4,7 +4,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-function SimpleSlider() {
+function SimpleSlider({ insideBox }) {
   const settings = {
     dots: true,
     infinite: true,
@@ -16,24 +16,15 @@ function SimpleSlider() {
   return (
     <div>
       <StyledSlider {...settings}>
-        <div>
-          <Images
-            className="Images"
-            src="/images/ListPage/cpImage1.png"
-            alt="이미지"
-          />
-        </div>
-        <div>
-          <h3>2</h3>
-        </div>
-        <div>
-          <h3>3</h3>
-        </div>
+        {insideBox.images.map(({ id, url }) => (
+          <div key={id}>
+            <Images src={url} alt={id} />
+          </div>
+        ))}
       </StyledSlider>
     </div>
   );
 }
-
 export const StyledSlider = styled(Slider)`
   height: 200px;
 

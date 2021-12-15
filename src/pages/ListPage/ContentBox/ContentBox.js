@@ -3,31 +3,36 @@ import styled from 'styled-components';
 import Slick from '../Slick/Slick';
 import LikeHeart from '../LikeHeart/LikeHeart';
 import { BsStarFill } from 'react-icons/bs';
+import { useNavigate } from 'react-router';
 
-function ContentBox({ contentBoxArea, offset, limit }) {
+function ContentBox({ contentBoxArea, offset, limit, term }) {
+  const navigate = useNavigate();
   return (
     <ContentInsideBox>
       {contentBoxArea.slice(offset, offset + limit).map(insideBox => {
-        const { host_id, category, images, name, description, price, amount } =
-          insideBox;
+        const { host_id, category, name, description, price } = insideBox;
 
         return (
           <SlickAndContent key={host_id}>
             <TopLine />
             <InsideContentBox>
-              <Slick />
+              <Slick insideBox={insideBox} />
               <ContentRightBox>
                 <ContentHeaderBox>
                   <TitleBox>
                     <JobTitle>{category}</JobTitle>
-                    <Title>{name}</Title>
+                    <Title onClick={() => navigate(`/detail/${host_id}`)}>
+                      {name}
+                    </Title>
                   </TitleBox>
                   <LikeIcon>
                     <LikeHeart />
                   </LikeIcon>
                 </ContentHeaderBox>
                 <HorizonLine />
-                <Introduce>{description}</Introduce>
+                <Introduce onClick={() => navigate(`/detail/${host_id}`)}>
+                  {description}
+                </Introduce>
                 <ContentBottomBox>
                   <ReviewBox>
                     <BsStarFill className="star" />
@@ -40,7 +45,7 @@ function ContentBox({ contentBoxArea, offset, limit }) {
                       <Day>/ 일</Day>
                     </PriceAndDay>
                     <AmountBox>
-                      <TextAndPrice>총액 ₩{amount}</TextAndPrice>
+                      <TextAndPrice>총액 ₩{price * term}</TextAndPrice>
                     </AmountBox>
                   </PriceBox>
                 </ContentBottomBox>
@@ -101,6 +106,7 @@ const JobTitle = styled.span`
 const Title = styled.span`
   font-size: 24px;
   line-height: 40px;
+  cursor: pointer;
 `;
 
 const LikeIcon = styled.button`
@@ -132,14 +138,17 @@ const HorizonLine = styled.div`
 const Introduce = styled.span`
   width: 380px;
   font-size: 16px;
+  line-height: 20px;
   color: ${({ theme }) => theme.darkGray};
   display: -webkit-box;
-  word-wrap: break-word;
-  -webkit-line-clamp: 2;
+  white-space: wrap;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+  overflow: hidden;
   text-overflow: ellipsis;
   font-weight: ${({ theme }) => theme.thin};
   margin-top: 10px;
+  cursor: pointer;
 `;
 
 const ContentBottomBox = styled.div`
