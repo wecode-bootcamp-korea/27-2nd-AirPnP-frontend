@@ -8,9 +8,7 @@ function KeywordButton() {
       {RIGHT_KEYWORD_LIST.map(tagKeyword => {
         return (
           <HeaderButton key={tagKeyword.id}>
-            <TextArrowBox>
-              <HeaderButtonText>{tagKeyword.keyword}</HeaderButtonText>
-            </TextArrowBox>
+            <HeaderButtonText>{tagKeyword.keyword}</HeaderButtonText>
           </HeaderButton>
         );
       })}
@@ -21,7 +19,6 @@ function KeywordButton() {
 const ButtonBox = styled.div`
   display: flex;
   align-items: center;
-  flex-shrink: 0;
 `;
 
 const HeaderButton = styled.button`
@@ -49,12 +46,4 @@ const HeaderButtonText = styled.span`
   line-height: 18px;
 `;
 
-const TextArrowBox = styled.div`
-  display: flex;
-  align-items: center;
-  .arrow {
-    width: 20px;
-    height: 20px;
-  }
-`;
 export default KeywordButton;

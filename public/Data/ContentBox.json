@@ -5,10 +5,20 @@
     "name": "1곰돌이",
     "description": "같이 겨울이 나의 거외다. 벌써 계절이 청춘이 이런 있습니다. 않은 시인의 밤이 아침이 하늘에는 둘 책상을 벌써 하나에 버리었습니다.",
     "price": "32,492",
+    "images": [
+      {
+        "id": 1,
+        "url": "/images/ListPage/cpImage1.png"
+      },
+      {
+        "id": 2,
+        "url": "/images/ListPage/cpImage1.png"
+      }
+    ],
     "amount": "",
     "address": "서울특별시 구로구 오리로 1197(오류동, 금강수목원아파트) ,108동 000호",
-    "Latitude": "37.488375",
-    "Longitude": "126.832291"
+    "latitude": "37.488375",
+    "longitude": "126.832291"
   },
   {
     "host_id": 2,
@@ -18,8 +28,14 @@
     "price": "80,500",
     "amount": "",
     "address": "인천광역시 서구 승학로 402번길 28, 000호",
-    "Latitude": "37.5579336",
-    "Longitude": "126.6758253"
+    "latitude": "37.5579336",
+    "longitude": "126.6758253",
+    "images": [
+      {
+        "id": 1,
+        "url": "/images/ListPage/cpImage1.png"
+      }
+    ]
   },
   {
     "host_id": 3,
@@ -29,8 +45,18 @@
     "price": "78,495",
     "amount": "",
     "address": "서울특별시 구로구 오리로 1197(오류동, 금강수목원아파트) ,108동 000호",
-    "Latitude": "37.488375",
-    "Longitude": "126.832291"
+    "latitude": "37.488375",
+    "longitude": "126.832291",
+    "images": [
+      {
+        "id": 1,
+        "url": "/images/ListPage/cpImage1.png"
+      },
+      {
+        "id": 2,
+        "url": "/images/ListPage/cpImage1.png"
+      }
+    ]
   },
   {
     "host_id": 4,
@@ -40,8 +66,14 @@
     "price": "80,500",
     "amount": "",
     "address": "서울특별시 구로구 오리로 1197(오류동, 금강수목원아파트) ,108동 000호",
-    "Latitude": "37.488375",
-    "Longitude": "126.832291"
+    "latitude": "37.488375",
+    "longitude": "126.832291",
+    "images": [
+      {
+        "id": 1,
+        "url": "/images/ListPage/cpImage1.png"
+      }
+    ]
   },
   {
     "host_id": 5,
@@ -51,8 +83,14 @@
     "price": "14,264",
     "amount": "",
     "address": "서울특별시 구로구 오리로 1197(오류동, 금강수목원아파트) ,108동 000호",
-    "Latitude": "37.488375",
-    "Longitude": "126.832291"
+    "latitude": "37.488375",
+    "longitude": "126.832291",
+    "images": [
+      {
+        "id": 1,
+        "url": "/images/ListPage/cpImage1.png"
+      }
+    ]
   },
   {
     "host_id": 6,
@@ -62,8 +100,14 @@
     "price": "80,500",
     "amount": "",
     "address": "서울특별시 구로구 오리로 1197(오류동, 금강수목원아파트) ,108동 000호",
-    "Latitude": "37.488375",
-    "Longitude": "126.832291"
+    "latitude": "37.488375",
+    "longitude": "126.832291",
+    "images": [
+      {
+        "id": 1,
+        "url": "/images/ListPage/cpImage1.png"
+      }
+    ]
   },
   {
     "host_id": 7,
@@ -73,8 +117,14 @@
     "price": "80,500",
     "amount": "",
     "address": "서울특별시 구로구 오리로 1197(오류동, 금강수목원아파트) ,108동 000호",
-    "Latitude": "37.488375",
-    "Longitude": "126.832291"
+    "latitude": "37.488375",
+    "longitude": "126.832291",
+    "images": [
+      {
+        "id": 1,
+        "url": "/images/ListPage/cpImage1.png"
+      }
+    ]
   },
   {
     "host_id": 8,
@@ -84,8 +134,14 @@
     "price": "80,500",
     "amount": "",
     "address": "서울특별시 구로구 오리로 1197(오류동, 금강수목원아파트) ,108동 000호",
-    "Latitude": "37.488375",
-    "Longitude": "126.832291"
+    "latitude": "37.488375",
+    "longitude": "126.832291",
+    "images": [
+      {
+        "id": 1,
+        "url": "/images/ListPage/cpImage1.png"
+      }
+    ]
   },
   {
     "host_id": 9,
@@ -95,8 +151,14 @@
     "price": "80,500",
     "amount": "",
     "address": "서울특별시 구로구 오리로 1197(오류동, 금강수목원아파트) ,108동 000호",
-    "Latitude": "37.488375",
-    "Longitude": "126.832291"
+    "latitude": "37.488375",
+    "longitude": "126.832291",
+    "images": [
+      {
+        "id": 1,
+        "url": "/images/ListPage/cpImage1.png"
+      }
+    ]
   },
   {
     "host_id": 10,
@@ -106,8 +168,14 @@
     "price": "80,500",
     "amount": "",
     "address": "서울특별시 구로구 오리로 1197(오류동, 금강수목원아파트) ,108동 000호",
-    "Latitude": "37.488375",
-    "Longitude": "126.832291"
+    "latitude": "37.488375",
+    "longitude": "126.832291",
+    "images": [
+      {
+        "id": 1,
+        "url": "/images/ListPage/cpImage1.png"
+      }
+    ]
   },
   {
     "host_id": 11,
@@ -117,8 +185,14 @@
     "price": "80,500",
     "amount": "",
     "address": "서울특별시 구로구 오리로 1197(오류동, 금강수목원아파트) ,108동 000호",
-    "Latitude": "37.488375",
-    "Longitude": "126.832291"
+    "latitude": "37.488375",
+    "longitude": "126.832291",
+    "images": [
+      {
+        "id": 1,
+        "url": "/images/ListPage/cpImage1.png"
+      }
+    ]
   },
   {
     "host_id": 12,
@@ -128,8 +202,14 @@
     "price": "80,500",
     "amount": "",
     "address": "서울특별시 구로구 오리로 1197(오류동, 금강수목원아파트) ,108동 000호",
-    "Latitude": "37.488375",
-    "Longitude": "126.832291"
+    "latitude": "37.488375",
+    "longitude": "126.832291",
+    "images": [
+      {
+        "id": 1,
+        "url": "/images/ListPage/cpImage1.png"
+      }
+    ]
   },
   {
     "host_id": 13,
@@ -139,8 +219,14 @@
     "price": "80,500",
     "amount": "",
     "address": "서울특별시 구로구 오리로 1197(오류동, 금강수목원아파트) ,108동 000호",
-    "Latitude": "37.488375",
-    "Longitude": "126.832291"
+    "latitude": "37.488375",
+    "longitude": "126.832291",
+    "images": [
+      {
+        "id": 1,
+        "url": "/images/ListPage/cpImage1.png"
+      }
+    ]
   },
   {
     "host_id": 14,
@@ -150,8 +236,14 @@
     "price": "80,500",
     "amount": "",
     "address": "서울특별시 구로구 오리로 1197(오류동, 금강수목원아파트) ,108동 000호",
-    "Latitude": "37.488375",
-    "Longitude": "126.832291"
+    "latitude": "37.488375",
+    "longitude": "126.832291",
+    "images": [
+      {
+        "id": 1,
+        "url": "/images/ListPage/cpImage1.png"
+      }
+    ]
   },
   {
     "host_id": 15,
@@ -161,8 +253,14 @@
     "price": "80,500",
     "amount": "",
     "address": "서울특별시 구로구 오리로 1197(오류동, 금강수목원아파트) ,108동 000호",
-    "Latitude": "37.488375",
-    "Longitude": "126.832291"
+    "latitude": "37.488375",
+    "longitude": "126.832291",
+    "images": [
+      {
+        "id": 1,
+        "url": "/images/ListPage/cpImage1.png"
+      }
+    ]
   },
   {
     "host_id": 16,
@@ -172,8 +270,14 @@
     "price": "80,500",
     "amount": "",
     "address": "서울특별시 구로구 오리로 1197(오류동, 금강수목원아파트) ,108동 000호",
-    "Latitude": "37.488375",
-    "Longitude": "126.832291"
+    "latitude": "37.488375",
+    "longitude": "126.832291",
+    "images": [
+      {
+        "id": 1,
+        "url": "/images/ListPage/cpImage1.png"
+      }
+    ]
   },
   {
     "host_id": 17,
@@ -183,8 +287,14 @@
     "price": "80,500",
     "amount": "",
     "address": "서울특별시 구로구 오리로 1197(오류동, 금강수목원아파트) ,108동 000호",
-    "Latitude": "37.488375",
-    "Longitude": "126.832291"
+    "latitude": "37.488375",
+    "longitude": "126.832291",
+    "images": [
+      {
+        "id": 1,
+        "url": "/images/ListPage/cpImage1.png"
+      }
+    ]
   },
   {
     "host_id": 18,
@@ -194,7 +304,13 @@
     "price": "80,500",
     "amount": "",
     "address": "서울특별시 구로구 오리로 1197(오류동, 금강수목원아파트) ,108동 000호",
-    "Latitude": "37.488375",
-    "Longitude": "126.832291"
+    "latitude": "37.488375",
+    "longitude": "126.832291",
+    "images": [
+      {
+        "id": 1,
+        "url": "/images/ListPage/cpImage1.png"
+      }
+    ]
   }
 ]
