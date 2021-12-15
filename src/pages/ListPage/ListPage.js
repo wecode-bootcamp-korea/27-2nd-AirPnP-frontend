@@ -29,7 +29,7 @@ function ListPage() {
         setPosts(res.RESULT);
         setFilteredPost(res.RESULT);
       });
-  }, [location]);
+  }, [category, start, end, term]);
 
   const filterList = category => {
     setFilteredPost(posts.filter(post => post.category === category));

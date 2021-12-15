@@ -38,6 +38,10 @@ const HeaderButton = styled.button`
   font-size: 12px;
   line-height: 16px;
   margin-right: 8px;
+
+  &:hover {
+    border: 1px solid ${({ theme }) => theme.black};
+  }
 `;
 
 const HeaderButtonText = styled.span`

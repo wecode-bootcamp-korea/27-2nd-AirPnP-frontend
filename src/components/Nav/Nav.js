@@ -5,6 +5,7 @@ import { IoMenuOutline } from 'react-icons/io5';
 import ExtendedSearchBar from './ExtendedSearchBar/ExtendedSearchBar';
 import Login from '../../pages/Login/Login';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Nav = () => {
   const [isMenuExtend, setIsMenuExtend] = useState(false);
@@ -31,7 +32,9 @@ const Nav = () => {
       <NavLayout />
       <NavStyle>
         <LogoContainer>
-          <Logo src="/images/airpnpLogo.png" alt="로고이미지" />
+          <Link to="/">
+            <Logo src="/images/airpnpLogo.png" alt="로고이미지" />
+          </Link>
         </LogoContainer>
         <SearchContainer>
           <SearchButton onClick={() => setIsSearchExtend(prev => !prev)}>

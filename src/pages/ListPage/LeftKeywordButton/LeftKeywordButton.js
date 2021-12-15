@@ -9,9 +9,6 @@ function LeftKeywordButton({ filterList }) {
   const openModal = () => {
     setModalVisible(!modalVisible);
   };
-  const closeModal = () => {
-    setModalVisible(false);
-  };
 
   return (
     <ButtonBox>
@@ -26,7 +23,7 @@ function LeftKeywordButton({ filterList }) {
           visible={modalVisible}
           closable={true}
           maskClosable={true}
-          onClick={closeModal}
+          onClick={openModal}
           filterList={filterList}
         />
       )}
