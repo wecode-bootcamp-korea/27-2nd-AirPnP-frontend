@@ -16,24 +16,23 @@ function SimpleSlider({ insideBox }) {
   return (
     <div>
       <StyledSlider {...settings}>
-        {insideBox.images.map(({ id, url }) => (
+        {insideBox.images.map(({ id, image_url }) => (
           <div key={id}>
-            <Images src={url} alt={id} />
+            <Images src={image_url} alt={id} />
           </div>
         ))}
       </StyledSlider>
     </div>
   );
 }
-export const StyledSlider = styled(Slider)`
-  height: 200px;
 
+export const StyledSlider = styled(Slider)`
   .slick-list {
     width: 300px;
     height: 200px;
     margin: 0 auto;
     overflow-x: hidden;
-    background: green;
+    background: #ddd;
     border-radius: 10px;
   }
 
@@ -104,8 +103,8 @@ export const StyledSlider = styled(Slider)`
 `;
 
 const Images = styled.img`
-  object-fit: cover;
   width: 300px;
+  object-fit: cover;
 `;
 
 export default SimpleSlider;
