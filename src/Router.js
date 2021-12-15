@@ -8,12 +8,14 @@ import HostRegister from './pages/HostRegister/HostRegister';
 import Signup from './pages/Signup/Signup';
 import Nav from './components/Nav/Nav';
 import Footer from './components/Footer/Footer';
+import ScrollTop from './components/ScrollTop/ScrollTop';
 
 const Router = () => {
   return (
     <>
       <Nav />
       <BrowserRouter>
+        <ScrollTop />
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/login" element={<Login />} />
