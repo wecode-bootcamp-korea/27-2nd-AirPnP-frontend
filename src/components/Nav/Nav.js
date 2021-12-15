@@ -29,7 +29,7 @@ const Nav = () => {
       <NavLayout />
       <NavStyle>
         <LogoContainer>
-          <Logo>airpnp</Logo>
+          <Logo src="/images/airpnpLogo.png" alt="로고이미지" />
         </LogoContainer>
         <SearchContainer>
           <SearchButton onClick={() => setIsSearchExtend(prev => !prev)}>
@@ -94,8 +94,9 @@ const LogoContainer = styled.div`
   width: 37%;
 `;
 
-const Logo = styled.div`
-  width: 100%;
+const Logo = styled.img`
+  width: 130px;
+  margin-top: 5px;
 `;
 
 const SearchContainer = styled.div`

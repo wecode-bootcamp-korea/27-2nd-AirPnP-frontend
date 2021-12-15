@@ -68,8 +68,8 @@ const Map = () => {
 export default Map;
 
 const StyledNaverMap = styled(NaverMap)`
-  width: 50%;
-  height: 400px;
+  width: 100vw;
+  height: 100vh;
 
   .styledDiv {
     padding: 4px 6px;

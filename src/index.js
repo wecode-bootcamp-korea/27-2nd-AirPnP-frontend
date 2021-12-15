@@ -5,6 +5,8 @@ import Router from './Router';
 import GlobalStyle from './styles/GlobalStyle';
 import { ThemeProvider } from 'styled-components';
 import theme from './styles/theme.js';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 ReactDOM.render(
   <RenderAfterNavermapsLoaded ncpClientId={process.env.REACT_APP_MAP_CLIENT_ID}>
