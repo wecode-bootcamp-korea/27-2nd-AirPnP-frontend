@@ -44,4 +44,5 @@ const MainButton = styled.button`
   letter-spacing: 2px;
   color: ${props => props.theme.highlight};
 `;
+
 export default Main;
