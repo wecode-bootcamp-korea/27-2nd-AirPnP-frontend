@@ -22,13 +22,14 @@ export default AutoCompleteInput;
 
 const AutoComplete = styled.div`
   position: absolute;
-  top: 82px;
+  top: 70px;
   left: 10px;
   padding: 10px 20px;
   height: 200px;
   width: 180px;
   border-radius: 20px;
   background-color: white;
+  box-shadow: 0 0 10px 0 #d9d9d9;
   overflow: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;

@@ -1,11 +1,8 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
-import DatePicker from 'react-datepicker';
 import { BiSearch } from 'react-icons/bi';
-import { ko } from 'date-fns/esm/locale';
-import CustomInput from './CustomInput/CustomInput';
 import AutoCompleteInput from './AutoCompleteInput/AutoCompleteInput';
-import './datepicker.scss';
+import DayPicker from '../../DayPicker/DayPicker';
 
 const ExtendedSearchBar = () => {
   const [searchInput, setSearchInput] = useState('');
@@ -48,39 +45,14 @@ const ExtendedSearchBar = () => {
           setSearchInput={setSearchInput}
         />
       )}
-      <DatePicker
-        selected={dateInput.startDate}
-        startDate={dateInput.startDate}
-        endDate={dateInput.endDate}
-        minDate={new Date()}
-        dateFormat={DATE_FORMAT}
-        dateFormatCalendar={DATE_FORMAT_CALENDAR}
-        onChange={date => adjustDate(START_DATE_TYPE, date)}
-        locale={ko}
-        customInput={<CustomInput inputType="startDate" />}
-      />
-      <DatePicker
-        selected={dateInput.endDate}
-        startDate={dateInput.startDate}
-        endDate={dateInput.endDate}
-        minDate={dateInput.startDate}
-        dateFormat={DATE_FORMAT}
-        dateFormatCalendar={DATE_FORMAT_CALENDAR}
-        onChange={date => adjustDate(END_DATE_TYPE, date)}
-        locale={ko}
-        customInput={<CustomInput inputType="endDate" />}
-      />
+      <DayPicker type="start" dateInput={dateInput} adjustDate={adjustDate} />
+      <DayPicker type="end" dateInput={dateInput} adjustDate={adjustDate} />
       <SearchClick>
         <BiSearch />
       </SearchClick>
     </SearchPannel>
   );
 };
-
-const START_DATE_TYPE = 'startDate';
-const END_DATE_TYPE = 'endDate';
-const DATE_FORMAT = 'yyyy년 MM월 dd일';
-const DATE_FORMAT_CALENDAR = 'yyyy년 MM월';
 
 const SearchPannel = styled.form`
   position: absolute;
