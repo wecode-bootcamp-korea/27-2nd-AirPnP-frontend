@@ -4,11 +4,13 @@ import { BiSearch } from 'react-icons/bi';
 import { IoMenuOutline } from 'react-icons/io5';
 import ExtendedSearchBar from './ExtendedSearchBar/ExtendedSearchBar';
 import Login from '../../pages/Login/Login';
+import { useNavigate } from 'react-router-dom';
 
 const Nav = () => {
   const [isMenuExtend, setIsMenuExtend] = useState(false);
   const [isSearchExtend, setIsSearchExtend] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   const modalClose = () => {
     setIsModalOpen(!isModalOpen);
@@ -42,7 +44,9 @@ const Nav = () => {
         {isSearchExtend && <ExtendedSearchBar />}
         {isModalOpen && <Login modalClose={modalClose} />}
         <MenuContainer>
-          <ToHost>호스트 등록</ToHost>
+          <ToHost onClick={() => navigate('/host-register')}>
+            호스트 등록
+          </ToHost>
           <ExtentionMenu onClick={() => setIsMenuExtend(prev => !prev)}>
             <IoMenuOutline />
             <ProfileImg src="/images/peopleicon.jpeg" alt="profile" />
@@ -60,7 +64,9 @@ const Nav = () => {
                       로그아웃
                     </LoginListElement>
                   )}
-                  <ListElement>호스트 등록</ListElement>
+                  <ListElement onClick={() => navigate('host-register')}>
+                    호스트 등록
+                  </ListElement>
                   <ListElement>마이페이지</ListElement>
                 </MenuList>
               </AppearedMenu>
@@ -149,7 +155,8 @@ const ToHost = styled.div`
   border: none;
   background-color: transparent;
   font-size: 12px;
-  text-decoration: none;
+  color: ${({ theme }) => theme.black};
+  text-decoration-line: none;
   cursor: pointer;
 `;
 
@@ -193,7 +200,7 @@ const ListElement = styled.li`
   padding: 16px 16px;
   font-size: 14px;
   color: #222222;
-  text-decoration: none;
+  text-decoration-line: none;
 
   &:hover {
     background-color: #f7f7f7;
