@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
 import { BiSearch } from 'react-icons/bi';
 import { ko } from 'date-fns/esm/locale';
-import './datepicker.scss';
 import CustomInput from './CustomInput/CustomInput';
+import AutoCompleteInput from './AutoCompleteInput/AutoCompleteInput';
+import './datepicker.scss';
 
 const ExtendedSearchBar = () => {
   const [searchInput, setSearchInput] = useState('');
@@ -12,7 +13,8 @@ const ExtendedSearchBar = () => {
     startDate: new Date(),
     endDate: new Date(),
   });
-  const talentInputRef = useRef();
+  const [isAutoCompleteOpen, setIsAutoCompleteOpen] = useState(false);
+  const categoryInputRef = useRef();
 
   const adjustDate = (type, date) => {
     setDateInput(prevDate => ({ ...prevDate, [type]: date }));
@@ -24,16 +26,28 @@ const ExtendedSearchBar = () => {
 
   return (
     <SearchPannel>
-      <PannelButton onClick={() => talentInputRef.current.focus()}>
+      <PannelButton onClick={() => categoryInputRef.current.focus()}>
         <ButtonName>재능</ButtonName>
-        <TalentInput
+        <CategoryInput
           value={searchInput}
           type="text"
           placeholder="어떤 재능을 찾으시나요?"
           onChange={changeSearchInput}
-          ref={talentInputRef}
+          ref={categoryInputRef}
+          onFocus={() => setIsAutoCompleteOpen(true)}
+          onBlur={() =>
+            setTimeout(() => {
+              setIsAutoCompleteOpen(false);
+            }, 100)
+          }
         />
       </PannelButton>
+      {isAutoCompleteOpen && (
+        <AutoCompleteInput
+          searchInput={searchInput}
+          setSearchInput={setSearchInput}
+        />
+      )}
       <DatePicker
         selected={dateInput.startDate}
         startDate={dateInput.startDate}
@@ -120,7 +134,7 @@ const ButtonName = styled.p`
   color: ${({ theme }) => theme.black};
 `;
 
-const TalentInput = styled.input`
+const CategoryInput = styled.input`
   min-width: 200px;
   border: none;
 

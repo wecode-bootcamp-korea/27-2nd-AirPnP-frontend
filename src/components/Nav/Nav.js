@@ -9,6 +9,7 @@ const Nav = () => {
   const [isMenuExtend, setIsMenuExtend] = useState(false);
   const [isSearchExtend, setIsSearchExtend] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const modalClose = () => {
     setIsModalOpen(!isModalOpen);
   };
