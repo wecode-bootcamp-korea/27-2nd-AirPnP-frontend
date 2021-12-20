@@ -12,21 +12,18 @@ import ScrollTop from './components/ScrollTop/ScrollTop';
 
 const Router = () => {
   return (
-    <>
+    <BrowserRouter>
       <Nav />
-      <BrowserRouter>
-        <ScrollTop />
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/list" element={<ListPage />} />
-          <Route path="/detail" element={<HostDetail />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/host-register/*" element={<HostRegister />} />
-        </Routes>
-      </BrowserRouter>
-      <Footer />
-    </>
+      <ScrollTop />
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/list" element={<ListPage />} />
+        <Route path="/detail" element={<HostDetail />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/host-register/*" element={<HostRegister />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
