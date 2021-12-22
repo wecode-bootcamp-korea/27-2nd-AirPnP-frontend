@@ -5,10 +5,10 @@ import { AiFillStar } from 'react-icons/ai';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { AiOutlineSafetyCertificate } from 'react-icons/ai';
 import { MdCancelPresentation } from 'react-icons/md';
-import { AiFillCaretLeft } from 'react-icons/ai';
-import { AiFillCaretRight } from 'react-icons/ai';
 
 import HostLevel from './HostLevelContainer';
+import SlickDetail from './SlickDetail/SlickDetail';
+import DatePickerDetail from './DatePickerDetail/DatePickerDetail';
 
 import { ArticleData } from './Data/ArticleData';
 import { CertificationCellData } from './Data/CertificationCellData';
@@ -25,6 +25,15 @@ function HostDetail() {
       .then(res => res.json())
       .then(data => setDetail(data.result[0]));
   }, []);
+
+  // useEffect(() => {
+  //   fetch(`http://10.58.0.48:8000/users/hosts/detail/${host_id}`)
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       console.log(data);
+  //       setDetail(data.result);
+  //     });
+  // }, []);
 
   const openModal = () => {
     setShowModal(true);
@@ -62,13 +71,7 @@ function HostDetail() {
       <Container>
         <MainRightBar>
           <DetailImgBox>
-            <DetailImgLeftButton>
-              <AiFillCaretLeft />
-            </DetailImgLeftButton>
-            <DetailImg alt="detail-image" src={detail.images} />
-            <DetailImgRightButton>
-              <AiFillCaretRight />
-            </DetailImgRightButton>
+            <SlickDetail detail={detail} />
           </DetailImgBox>
           <DetailExplanation>
             <SubTitle>
@@ -160,14 +163,13 @@ function HostDetail() {
               <HostLevel />
             </ReservationSubTitle>
             <ReservationDate>
-              <DateStart>
-                <DatePickLetter>시작</DatePickLetter>
-                <DateAddLetter>날짜 추가</DateAddLetter>
-              </DateStart>
-              <DateEnd>
-                <DatePickLetter>끝</DatePickLetter>
-                <DateAddLetter>날짜 추가</DateAddLetter>
-              </DateEnd>
+              <DateBoxStart>
+                <DatePickLetterStart>시작</DatePickLetterStart>
+                <DatePickerDetail />
+              </DateBoxStart>
+              <DateBoxEnd>
+                <DatePickLetterEnd>끝</DatePickLetterEnd>
+              </DateBoxEnd>
             </ReservationDate>
             <ReservationButton>예약 가능 여부 보기</ReservationButton>
           </Reservation>
@@ -231,7 +233,7 @@ function HostDetail() {
 }
 
 const DetailMainWrapper = styled.main`
-  width: 1200px;
+  width: 100%;
   margin: 0 auto;
 `;
 
@@ -255,37 +257,6 @@ const MainLeftBar = styled.div`
 const MainRightBar = styled.div`
   display: flex;
   flex-direction: column;
-`;
-const DetailImg = styled.img`
-  width: 700px;
-  height: 500px;
-  border-radius: 20px;
-`;
-const DetailImgLeftButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  left: 20px;
-  background: none;
-  border: 1px solid white;
-  border-radius: 50px;
-  color: white;
-  font-size: 20px;
-  cursor: pointer;
-`;
-const DetailImgRightButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  right: 20px;
-  background: none;
-  border: 1px solid white;
-  border-radius: 50px;
-  color: white;
-  font-size: 20px;
-  cursor: pointer;
 `;
 const DetailTopBar = styled.div`
   display: flex;
@@ -560,34 +531,37 @@ const ReservationSubTitle = styled.div`
 `;
 const ReservationDate = styled.div`
   display: flex;
+  justify-content: center;
   width: 350px;
   height: 100px;
   margin-top: 30px;
   border-radius: 20px;
   border: ${props => props.theme.borderMiddleGray};
 `;
-const DateStart = styled.div`
+const DateBoxStart = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 50%;
-  margin-left: 15px;
+  align-items: center;
+  width: 160px;
+  height: 100px;
   border-right: ${props => props.theme.borderMiddleGray};
 `;
-const DateEnd = styled.div`
+const DateBoxEnd = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 50%;
-  margin-left: 15px;
+  align-items: center;
+  width: 160px;
+  height: 100px;
 `;
-const DatePickLetter = styled.span`
+const DatePickLetterStart = styled.span`
+  margin-bottom: 20px;
   font-size: 20px;
-  margin-bottom: 13px;
 `;
-const DateAddLetter = styled.span`
-  color: ${props => props.theme.middleGray};
-  font-size: 15px;
+const DatePickLetterEnd = styled.span`
+  margin-bottom: 53px;
+  font-size: 20px;
 `;
 const ReservationButton = styled.button`
   width: 250px;
@@ -599,6 +573,7 @@ const ReservationButton = styled.button`
   font-weight: 500;
   border-radius: 20px;
   border: 0.5px solid black;
+  cursor: pointer;
 `;
 const ContainerBottom = styled.div`
   display: flex;
