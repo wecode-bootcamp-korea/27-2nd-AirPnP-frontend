@@ -1,37 +1,96 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { AiFillStar } from 'react-icons/ai';
-import { AiOutlineHeart } from 'react-icons/ai';
 import { AiOutlineSafetyCertificate } from 'react-icons/ai';
 import { MdCancelPresentation } from 'react-icons/md';
+import { BsFillPinMapFill } from 'react-icons/bs';
+import { AiOutlineClockCircle } from 'react-icons/ai';
+import { BsBagDash } from 'react-icons/bs';
+import { RiMedalLine } from 'react-icons/ri';
 
-import HostLevel from './HostLevelContainer';
 import SlickDetail from './SlickDetail/SlickDetail';
-import DatePickerDetail from './DatePickerDetail/DatePickerDetail';
+import DayPicker from '../../components/DayPicker/DayPicker';
+import Map from '../../components/Map/Map';
+
+import API_CONFIG from '../../config';
 
 import { ArticleData } from './Data/ArticleData';
-import { CertificationCellData } from './Data/CertificationCellData';
-import { AdditionInfoListData } from './Data/AdditionInfoListData';
 import { AdditionalListData } from './Data/AdditionalListData';
-import { InfoListData } from './Data/InfoList';
 
 function HostDetail() {
+  const { host_id } = useParams();
   const [detail, setDetail] = useState({});
   const [showModal, setShowModal] = useState(false);
+  const [dateInput, setDateInput] = useState({
+    startDate: new Date(),
+    endDate: new Date(),
+  });
+  const [totalPrice, setTotalPrice] = useState(0);
+  const navigate = useNavigate();
+  const token = localStorage.getItem('token') || '';
 
-  // useEffect(() => {
-  //   fetch('/Data/detailData.json')
-  //     .then(res => res.json())
-  //     .then(data => setDetail(data.result[0]));
-  // }, []);
+  const adjustDate = (type, date) => {
+    if (type === 'startDate' && date > dateInput.endDate) {
+      setDateInput({
+        startDate: date,
+        endDate: date,
+      });
+    } else {
+      setDateInput(prevDate => ({ ...prevDate, [type]: date }));
+    }
+    calculateTotalPrice();
+  };
 
-  useEffect(() => {
-    fetch(`http://10.58.0.48:8000/users/hosts/detail/${3}`)
+  const calculateTotalPrice = () => {
+    const { startDate, endDate } = dateInput;
+    const term = Math.round((endDate - startDate) / (24 * 60 * 60 * 1000)) + 1;
+    setTotalPrice(detail.price * term);
+  };
+
+  const parseDate = date => {
+    const year = date.getFullYear();
+    const month = 1 + date.getMonth();
+    const day = date.getDate();
+
+    return year + '-' + month + '-' + day;
+  };
+
+  const bookData = () => {
+    fetch(API_CONFIG.BOOKING, {
+      method: 'POST',
+      headers: {
+        Authorization: token,
+      },
+      body: JSON.stringify({
+        start_date: parseDate(dateInput.startDate),
+        end_date: parseDate(dateInput.endDate),
+        total_price: totalPrice,
+        host_id: host_id,
+      }),
+    })
       .then(res => res.json())
       .then(data => {
-        console.log(data);
-        setDetail(data.result);
+        if (data.message === 'SUCCESS') {
+          if (
+            window.confirm(
+              '정상적으로 예약이 완료되었습니다. 메인 화면으로 이동하시겠습니까?'
+            )
+          ) {
+            navigate('/');
+          }
+        } else if ((data.message = 'ALREADY_BOOKED')) {
+          alert('예약이 불가능한 날짜입니다.');
+        }
+      });
+  };
+
+  useEffect(() => {
+    fetch(API_CONFIG.HOST_DETAIL + host_id)
+      .then(res => res.json())
+      .then(data => {
+        setDetail(data.RESULT);
       });
   }, []);
 
@@ -49,22 +108,20 @@ function HostDetail() {
     <DetailMainWrapper>
       <DetailMainTitle>
         <DetailTopBar>
-          <TopBarTitle>{detail.title}</TopBarTitle>
+          <TitleBox>
+            <TopBarTitle>{detail.title}</TopBarTitle>
+          </TitleBox>
           <TopBarSubTitle>
             <TopLeft>
               <Category>
                 <AiFillStar />
-                {detail.category}
+                &nbsp; {detail.category}
               </Category>
-              <HostLevel />
-              <HostLocal>{detail.address}</HostLocal>
+              <HostLocal>
+                <AiFillStar />
+                &nbsp;{detail.address}
+              </HostLocal>
             </TopLeft>
-            <TopRight>
-              <SharingPost>공유하기</SharingPost>
-              <StorePost>
-                <AiOutlineHeart /> 저장
-              </StorePost>
-            </TopRight>
           </TopBarSubTitle>
         </DetailTopBar>
       </DetailMainTitle>
@@ -80,9 +137,9 @@ function HostDetail() {
                   {detail.host_name}
                   {detail.subtitle}
                 </MainIntro>
-                <SubIntro>✦ 경력: {detail.career}</SubIntro>
+                <SubIntro>✦ 경력: {detail.career}년</SubIntro>
               </Intro>
-              <ProfileImg src="images/peopleicon.jpeg" alt="profile-image" />
+              <ProfileImg src="/images/peopleicon.jpeg" alt="profile-image" />
             </SubTitle>
             <ArticleStep>
               {ArticleData.map(list => {
@@ -121,33 +178,46 @@ function HostDetail() {
             <InfoListBox>
               <BasicInfo>
                 <InfoTitle>기본 정보</InfoTitle>
-                {InfoListData.map(list => {
-                  return (
-                    <List key={list.id}>
-                      <InfoListIcon>{list.icon}</InfoListIcon>
-                      <InfoListLetter>{list.letter}</InfoListLetter>
-                    </List>
-                  );
-                })}
+                <List>
+                  <InfoListIcon>
+                    <BsFillPinMapFill />
+                  </InfoListIcon>
+                  <InfoListLetter>{detail.address}</InfoListLetter>
+                </List>
+                <List>
+                  <InfoListIcon>
+                    <AiOutlineClockCircle />
+                  </InfoListIcon>
+                  <InfoListLetter>
+                    연락 가능 시간: 오전 9시 부터 오후 6시
+                  </InfoListLetter>
+                </List>
               </BasicInfo>
               <AdditionInfo>
                 <AdditionInfoTitle>추가 정보</AdditionInfoTitle>
-                {AdditionInfoListData.map(list => {
-                  return (
-                    <AdditionInfoList key={list.id}>
-                      <AdditionInfoListIcon>{list.icon}</AdditionInfoListIcon>
-                      <AdditionInfoListLetter>
-                        {list.letter}
-                      </AdditionInfoListLetter>
-                    </AdditionInfoList>
-                  );
-                })}
+                <AdditionalList>
+                  <AdditionInfoListIcon>
+                    <BsBagDash />
+                  </AdditionInfoListIcon>
+                  <AdditionInfoListLetter>
+                    경력: {detail.career}년
+                  </AdditionInfoListLetter>
+                </AdditionalList>
+                <AdditionalList>
+                  <AdditionInfoListIcon>
+                    <RiMedalLine />
+                  </AdditionInfoListIcon>
+                  <AdditionInfoListLetter>
+                    자격증 등록 완료
+                  </AdditionInfoListLetter>
+                </AdditionalList>
               </AdditionInfo>
             </InfoListBox>
             <MapBox>
               <HostingMapTitle>호스팅 지역</HostingMapTitle>
-              <Map>지도 자리 입니당</Map>
-              <LocalName>{detail.local}</LocalName>
+              <MapContainer>
+                <Map longitude={detail.longitude} latitude={detail.latitude} />
+              </MapContainer>
               <LocalDes>{detail.local_description}</LocalDes>
             </MapBox>
           </DetailExplanation>
@@ -155,23 +225,30 @@ function HostDetail() {
         <MainLeftBar>
           <Reservation>
             <ReservationTitle>
-              요금을 확인하려면 날짜를 입력하세요.
+              {totalPrice
+                ? `₩ 총가격:  ${totalPrice} 원`
+                : '요금을 확인하려면 날짜를 입력하세요.'}
             </ReservationTitle>
-            <ReservationSubTitle>
-              <AiFillStar />
-              {detail.category}&nbsp;
-              <HostLevel />
-            </ReservationSubTitle>
             <ReservationDate>
               <DateBoxStart>
-                <DatePickLetterStart>시작</DatePickLetterStart>
-                <DatePickerDetail />
+                <DayPicker
+                  type="start"
+                  dateInput={dateInput}
+                  adjustDate={adjustDate}
+                />
               </DateBoxStart>
               <DateBoxEnd>
-                <DatePickLetterEnd>끝</DatePickLetterEnd>
+                <DayPicker
+                  type="end"
+                  dateInput={dateInput}
+                  adjustDate={adjustDate}
+                />
               </DateBoxEnd>
             </ReservationDate>
-            <ReservationButton>예약 가능 여부 보기</ReservationButton>
+            <ReservationSubTitle>
+              1일 당 / {detail.price} 원
+            </ReservationSubTitle>
+            <ReservationButton onClick={bookData}>예약하기</ReservationButton>
           </Reservation>
         </MainLeftBar>
       </Container>
@@ -179,31 +256,24 @@ function HostDetail() {
         <HostBox>
           <HostIntro>
             <HostProfile>
-              <HostImg src="image/Detail/wave.JPG" alt="host-img" />
+              <HostImg src="/images/peopleicon.jpeg" alt="profile-img" />
               <HostNickName>
                 <HostID>호스트: {detail.host_name}님</HostID>
                 <HostSignUpDate>회원 가입일: 2017년</HostSignUpDate>
               </HostNickName>
             </HostProfile>
             <CertifiCation>
-              {CertificationCellData.map(list => {
-                return (
-                  <CertificationCell key={list.id}>
-                    <CellIcon>{list.icon}</CellIcon>
-                    <CellLetter>{list.letter}</CellLetter>
-                  </CertificationCell>
-                );
-              })}
+              <CertificationCell>
+                <CellIcon>
+                  <AiFillStar />
+                </CellIcon>
+                <CellLetter>{detail.category}</CellLetter>
+                <CellIcon>
+                  <AiOutlineSafetyCertificate />
+                </CellIcon>
+                <CellLetter>본인 인증 완료</CellLetter>
+              </CertificationCell>
             </CertifiCation>
-            <PageDes>
-              <DescriptionBox>
-                <DesTitle>Naniboo님은 슈퍼맨 입니다.</DesTitle>
-                <DesSub>
-                  슈퍼맨은 풍부한 경험과 높은 평점을 자랑하며 게스트의
-                  익사이팅한 체험을 위해 최선을 다합니다.
-                </DesSub>
-              </DescriptionBox>
-            </PageDes>
           </HostIntro>
           <HostContact>
             <Additional>
@@ -215,7 +285,6 @@ function HostDetail() {
                 );
               })}
             </Additional>
-            <ContactButton>호스트에게 연락하기</ContactButton>
             <Caution>
               <CautionIcon>
                 <AiOutlineSafetyCertificate />
@@ -233,7 +302,7 @@ function HostDetail() {
 }
 
 const DetailMainWrapper = styled.main`
-  width: 100%;
+  width: 1200px;
   margin: 0 auto;
 `;
 
@@ -267,9 +336,15 @@ const DetailTopBar = styled.div`
   margin: 100px auto;
   width: 100%;
 `;
-
+const TitleBox = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  margin-left: 30px;
+`;
 const TopBarTitle = styled.div`
   display: flex;
+  justify-content: flex-start;
   font-size: 45px;
 `;
 const Category = styled.span`
@@ -278,18 +353,10 @@ const Category = styled.span`
   align-items: center;
 `;
 const HostLocal = styled.span`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-left: 10px;
-`;
-const SharingPost = styled.span`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-const StorePost = styled.span`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 15px;
 `;
 const TopBarSubTitle = styled.div`
   display: flex;
@@ -305,9 +372,6 @@ const TopLeft = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-const TopRight = styled.div`
-  display: flex;
 `;
 const DetailExplanation = styled.div`
   width: 650px;
@@ -355,10 +419,6 @@ const Bold = styled.h2`
 
 const Light = styled.h4`
   color: ${props => props.theme.middleGray};
-`;
-const AdditionInfoList = styled.div`
-  margin: 20px 0 20px 15px;
-  font-size: 30px;
 `;
 const AdditionInfoListIcon = styled.span`
   font-size: 20px;
@@ -468,7 +528,7 @@ const ModalContent = styled.p`
 const InfoListBox = styled.div`
   display: flex;
   width: 650px;
-  height: 470px;
+  height: 350px;
   border-bottom: ${props => props.theme.borderMiddleGray};
 `;
 const BasicInfo = styled.div`
@@ -485,6 +545,8 @@ const InfoTitle = styled.h1`
 `;
 
 const List = styled.div`
+  display: flex;
+  align-items: center;
   margin: 20px 0 20px 15px;
   font-size: 30px;
 `;
@@ -521,13 +583,15 @@ const ReservationTitle = styled.div`
   width: 380px;
   height: 30px;
   margin-top: 40px;
-  font-size: 25px;
+  font-size: 20px;
 `;
 const ReservationSubTitle = styled.div`
   display: flex;
   justify-content: flex-start;
-  margin: 15px 0 0 15px;
+  margin: 35px 0 0 15px;
+  color: ${props => props.theme.middleGray};
   font-size: 15px;
+  font-weight: 600;
 `;
 const ReservationDate = styled.div`
   display: flex;
@@ -555,18 +619,10 @@ const DateBoxEnd = styled.div`
   width: 160px;
   height: 100px;
 `;
-const DatePickLetterStart = styled.span`
-  margin-bottom: 20px;
-  font-size: 20px;
-`;
-const DatePickLetterEnd = styled.span`
-  margin-bottom: 53px;
-  font-size: 20px;
-`;
 const ReservationButton = styled.button`
   width: 250px;
   height: 50px;
-  margin-top: 50px;
+  margin-top: 40px;
   background-color: ${props => props.theme.highlight};
   color: white;
   font-size: 16px;
@@ -588,15 +644,10 @@ const HostingMapTitle = styled.div`
   margin: 20px;
   font-size: 30px;
 `;
-const Map = styled.div`
+const MapContainer = styled.div`
   width: 700px;
   height: 500px;
   margin-left: 15px;
-  border: 1px solid black;
-`;
-const LocalName = styled.div`
-  margin: 20px 0 0 25px;
-  font-size: 20px;
 `;
 const LocalDes = styled.p`
   width: 700px;
@@ -605,7 +656,7 @@ const LocalDes = styled.p`
 const HostBox = styled.div`
   display: flex;
   width: 1200px;
-  height: 500px;
+  height: 350px;
   border-top: ${props => props.theme.borderMiddleGray};
 `;
 
@@ -642,7 +693,6 @@ const CertifiCation = styled.div`
 `;
 const CertificationCell = styled.div`
   display: flex;
-  margin-right: 10px;
 `;
 
 const CellIcon = styled.div`
@@ -650,26 +700,7 @@ const CellIcon = styled.div`
 `;
 
 const CellLetter = styled.span`
-  margin: 2px 0 0 10px;
-`;
-const PageDes = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 30px 0 0 15px;
-`;
-
-const DescriptionBox = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const DesTitle = styled.span`
-  margin: 20px 0;
-  font-size: 20px;
-`;
-
-const DesSub = styled.p`
-  width: 400px;
+  margin: 2px 10px 0 10px;
 `;
 const HostContact = styled.div`
   display: flex;
@@ -681,19 +712,12 @@ const Additional = styled.div`
   margin: 70px 0 50px 100px;
 `;
 const AdditionalList = styled.span`
+  display: flex;
+  align-items: center;
   margin-bottom: 13px;
 `;
 const AdditionalInfo = styled.span`
   font-size: 15px;
-`;
-const ContactButton = styled.button`
-  width: 190px;
-  height: 50px;
-  margin: 0 0 50px 100px;
-  font-size: 15px;
-  border-radius: 20px;
-  background: none;
-  border: 1px solid black;
 `;
 const Caution = styled.div`
   display: flex;

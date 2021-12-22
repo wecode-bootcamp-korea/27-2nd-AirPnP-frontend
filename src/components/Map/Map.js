@@ -15,20 +15,22 @@ const Map = ({ longitude, latitude, posts, filterListByMap }) => {
   }, []);
 
   const setMarker = () => {
-    const result = {};
-    for (let i of posts) {
-      if (result[i.address]) {
-        result[i.address].count += 1;
-      } else {
-        result[i.address] = {
-          count: 0,
-          latitude: i.latitude,
-          longitude: i.longitude,
-        };
+    if (posts) {
+      const result = {};
+      for (let i of posts) {
+        if (result[i.address]) {
+          result[i.address].count += 1;
+        } else {
+          result[i.address] = {
+            count: 0,
+            latitude: i.latitude,
+            longitude: i.longitude,
+          };
+        }
       }
-    }
 
-    setMarkerLocation(Object.entries(result));
+      setMarkerLocation(Object.entries(result));
+    }
   };
 
   const getLocation = () => {
