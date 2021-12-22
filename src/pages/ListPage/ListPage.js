@@ -35,6 +35,10 @@ function ListPage() {
     setFilteredPost(posts.filter(post => post.category === category));
   };
 
+  const filterListByMap = address => {
+    setFilteredPost(posts.filter(post => post.address === address));
+  };
+
   return (
     <ListPageContainer>
       {posts.length && (
@@ -59,9 +63,11 @@ function ListPage() {
           />
         </LeftSection>
       )}
-      <MapWrap>
-        <Map />
-      </MapWrap>
+      {posts.length && (
+        <MapWrap>
+          <Map posts={posts} filterListByMap={filterListByMap} />
+        </MapWrap>
+      )}
     </ListPageContainer>
   );
 }
