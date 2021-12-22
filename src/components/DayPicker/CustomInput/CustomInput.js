@@ -1,9 +1,9 @@
 import React, { forwardRef } from 'react';
 import styled from 'styled-components';
 
-const CustomInput = forwardRef(({ value, onClick, inputType }) => {
+const CustomInput = forwardRef(({ value, onClick, inputType }, ref) => {
   return (
-    <PannelButton onClick={onClick}>
+    <PannelButton onClick={onClick} ref={ref}>
       <ButtonName>{inputType === 'end' ? '끝' : '시작'}</ButtonName>
       <SelectedDate>{value}</SelectedDate>
     </PannelButton>

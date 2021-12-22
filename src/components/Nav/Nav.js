@@ -41,7 +41,9 @@ const Nav = () => {
             </SearchCircle>
           </SearchButton>
         </SearchContainer>
-        {isSearchExtend && <ExtendedSearchBar />}
+        {isSearchExtend && (
+          <ExtendedSearchBar setIsSearchExtend={setIsSearchExtend} />
+        )}
         {isModalOpen && <Login modalClose={modalClose} />}
         <MenuContainer>
           <ToHost onClick={() => navigate('/host-register')}>

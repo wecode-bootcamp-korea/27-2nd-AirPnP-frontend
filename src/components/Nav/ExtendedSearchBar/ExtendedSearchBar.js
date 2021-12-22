@@ -1,10 +1,11 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import { BiSearch } from 'react-icons/bi';
 import AutoCompleteInput from './AutoCompleteInput/AutoCompleteInput';
 import DayPicker from '../../DayPicker/DayPicker';
 
-const ExtendedSearchBar = () => {
+const ExtendedSearchBar = ({ setIsSearchExtend }) => {
   const [searchInput, setSearchInput] = useState('');
   const [dateInput, setDateInput] = useState({
     startDate: new Date(),
@@ -12,6 +13,7 @@ const ExtendedSearchBar = () => {
   });
   const [isAutoCompleteOpen, setIsAutoCompleteOpen] = useState(false);
   const categoryInputRef = useRef();
+  const navigate = useNavigate();
 
   const adjustDate = (type, date) => {
     setDateInput(prevDate => ({ ...prevDate, [type]: date }));
@@ -21,38 +23,75 @@ const ExtendedSearchBar = () => {
     setSearchInput(() => e.target.value);
   };
 
+  const onSearch = e => {
+    e.preventDefault();
+    const { startDate, endDate } = dateInput;
+    const term = Math.round((endDate - startDate) / (24 * 60 * 60 * 1000));
+    term >= 0
+      ? navigate(
+          `/list?start=${parseDate(startDate)}&end=${parseDate(
+            endDate
+          )}&category=${searchInput}&term=${term}`
+        )
+      : alert('날짜를 확인하세요');
+    setIsSearchExtend(false);
+  };
+
+  const parseDate = date => {
+    const year = date.getFullYear();
+    const month = 1 + date.getMonth();
+    const day = date.getDate();
+
+    return year + '-' + month + '-' + day;
+  };
+
   return (
-    <SearchPannel>
-      <PannelButton onClick={() => categoryInputRef.current.focus()}>
-        <ButtonName>재능</ButtonName>
-        <CategoryInput
-          value={searchInput}
-          type="text"
-          placeholder="어떤 재능을 찾으시나요?"
-          onChange={changeSearchInput}
-          ref={categoryInputRef}
-          onFocus={() => setIsAutoCompleteOpen(true)}
-          onBlur={() =>
-            setTimeout(() => {
-              setIsAutoCompleteOpen(false);
-            }, 100)
-          }
-        />
-      </PannelButton>
-      {isAutoCompleteOpen && (
-        <AutoCompleteInput
-          searchInput={searchInput}
-          setSearchInput={setSearchInput}
-        />
-      )}
-      <DayPicker type="start" dateInput={dateInput} adjustDate={adjustDate} />
-      <DayPicker type="end" dateInput={dateInput} adjustDate={adjustDate} />
-      <SearchClick>
-        <BiSearch />
-      </SearchClick>
-    </SearchPannel>
+    <>
+      <BackGround onClick={() => setIsSearchExtend(false)} />
+      <SearchPannel>
+        <PannelButton onClick={() => categoryInputRef.current.focus()}>
+          <ButtonName>재능</ButtonName>
+          <CategoryInput
+            value={searchInput}
+            type="text"
+            placeholder="어떤 재능을 찾으시나요?"
+            onChange={changeSearchInput}
+            ref={categoryInputRef}
+            onFocus={() => setIsAutoCompleteOpen(true)}
+            onBlur={() =>
+              setTimeout(() => {
+                setIsAutoCompleteOpen(false);
+              }, 100)
+            }
+          />
+        </PannelButton>
+        {isAutoCompleteOpen && (
+          <AutoCompleteInput
+            searchInput={searchInput}
+            setSearchInput={setSearchInput}
+          />
+        )}
+        <DayPicker type="start" dateInput={dateInput} adjustDate={adjustDate} />
+        <DayPicker type="end" dateInput={dateInput} adjustDate={adjustDate} />
+        <SearchClick onClick={onSearch}>
+          <BiSearch />
+        </SearchClick>
+      </SearchPannel>
+    </>
   );
 };
+
+export default ExtendedSearchBar;
+
+const BackGround = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 997;
+`;
 
 const SearchPannel = styled.form`
   position: absolute;
@@ -64,6 +103,7 @@ const SearchPannel = styled.form`
   background-color: white;
   border: 1px solid ${({ theme }) => theme.lightGray};
   border-radius: 45px;
+  z-index: 999;
 `;
 
 const PannelButton = styled.div`
@@ -114,5 +154,3 @@ const CategoryInput = styled.input`
     outline: none;
   }
 `;
-
-export default ExtendedSearchBar;

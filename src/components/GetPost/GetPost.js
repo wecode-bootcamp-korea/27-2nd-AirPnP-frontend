@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import DaumPostcode from 'react-daum-postcode';
 
-function GetPost({ adjustHostInfo, closePopup }) {
+const GetPost = ({ adjustHostInfo, closePopup }) => {
   const handdlePost = data => {
     const address = [data.sido, data.sigungu, data.bname].join(' ');
     const detailAddress = data.roadAddress.split(' ');
@@ -21,7 +21,7 @@ function GetPost({ adjustHostInfo, closePopup }) {
       </ModalWrapper>
     </BackGround>
   );
-}
+};
 
 export default GetPost;
 
