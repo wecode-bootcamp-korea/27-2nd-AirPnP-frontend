@@ -1,5 +1,5 @@
 import { AiOutlineSafetyCertificate } from 'react-icons/ai';
-import { GrKey } from 'react-icons/gr';
+import { AiOutlineFire } from 'react-icons/ai';
 import { AiOutlineCalendar } from 'react-icons/ai';
 
 export const ArticleData = [
@@ -12,10 +12,9 @@ export const ArticleData = [
   },
   {
     id: 2,
-    icon: <GrKey />,
-    boldText: '순조로운 예약 과정',
-    lightText:
-      '최근 체험한 게스트 중 100%가 체크인 과정에 별점 5점을 준 활동 입니다.',
+    icon: <AiOutlineFire />,
+    boldText: '예약순위',
+    lightText: '최근 예약된 체험활동 중 가장 인기있는 활동 입니다',
   },
   {
     id: 3,

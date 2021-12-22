@@ -8,23 +8,23 @@
       "images": [
         {
           "id": 1,
-          "src": "image/Detail/animal.jpg",
+          "src": "/image/Detail/animal.jpg",
           "alt": "Detail-img"
         },
         {
           "id": 2,
-          "src": "image/Detail/goat.jpg",
+          "src": "/image/Detail/goat.jpg",
           "alt": "Detail-img"
         },
         {
           "id": 3,
-          "src": "image/Detail/big-tree.jpg",
+          "src": "/image/Detail/big-tree.jpg",
           "alt": "Detail-img"
         }
       ],
       "host_name": "Niboo",
       "subtitle": "님이 주최하는 P&p의 자연여행",
-      "career": "5년",
+      "career": "5",
       "description": "hellovandi(헬로반디) 펜션은 제주곶자왈반딧불이로 유명한 청수리평화동 청정귤밭에 위치한 편안한 휴식과 자연속의 힐링공간을 2019년 8월 오픈하여, 정성가득한 조식(수플레 팬케이크 & 빠네&치킨누들&소고기스튜 외)과 도자기컵(페인팅)무료체험과 감귤밭 사진무료체험 가능하며, 복층구조의 침실에서 해돋이와 한라산을 감상할 수 있는 bnb로 예술가부부가 호스트로 반려견 치아와 반디와 거주하며 직접 최선을 다하는 귤밭속의 예술 휴식공간입니다.",
       "local_description": "서울특별시 서대문구 충정로3가"
     }
