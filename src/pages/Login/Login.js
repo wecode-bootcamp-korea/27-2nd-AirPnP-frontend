@@ -40,42 +40,41 @@ function Login({ modalClose }) {
   };
 
   return (
-    <WrapPane>
-      <LoginSection>
-        <ModalContainer>
-          <WrapModal>
-            <CloseIcon
-              src="/images/Login/x-mark.png"
-              alt="closeButton"
-              onClick={modalClose}
-            />
-          </WrapModal>
-          <LoginHeader>
-            <WrapHeaderText>
-              <HeaderText>로그인 또는 회원 가입</HeaderText>
-            </WrapHeaderText>
-          </LoginHeader>
-          <WrapContentBox>
-            <LoginPane>
-              <WrapWelcomeText>
-                <PnpLogo src="/images/Login/airpnp-Logo.png" alt="airpnpLogo" />
-                <WelcomeText>에 오신 것을 환영합니다.</WelcomeText>
-              </WrapWelcomeText>
-              <WrapSocialButton>
-                <LoginButton>
-                  <div onClick={kakaoLoginClickHandler}>
-                    <SocialButton>
-                      <RiKakaoTalkFill className="kakaoLogo" />
-                      <KakaoLogin>카카오톡으로 로그인하기</KakaoLogin>
-                    </SocialButton>
-                  </div>
-                </LoginButton>
-              </WrapSocialButton>
-            </LoginPane>
-          </WrapContentBox>
-        </ModalContainer>
-      </LoginSection>
-    </WrapPane>
+    <LoginSection>
+      <WrapPane onClick={modalClose} />
+      <ModalContainer>
+        <WrapModal>
+          <CloseIcon
+            src="/images/Login/x-mark.png"
+            alt="closeButton"
+            onClick={modalClose}
+          />
+        </WrapModal>
+        <LoginHeader>
+          <WrapHeaderText>
+            <HeaderText>로그인 또는 회원 가입</HeaderText>
+          </WrapHeaderText>
+        </LoginHeader>
+        <WrapContentBox>
+          <LoginPane>
+            <WrapWelcomeText>
+              <PnpLogo src="/images/Login/airpnp-Logo.png" alt="airpnpLogo" />
+              <WelcomeText>에 오신 것을 환영합니다.</WelcomeText>
+            </WrapWelcomeText>
+            <WrapSocialButton>
+              <LoginButton>
+                <div onClick={kakaoLoginClickHandler}>
+                  <SocialButton>
+                    <RiKakaoTalkFill className="kakaoLogo" />
+                    <KakaoLogin>카카오톡으로 로그인하기</KakaoLogin>
+                  </SocialButton>
+                </div>
+              </LoginButton>
+            </WrapSocialButton>
+          </LoginPane>
+        </WrapContentBox>
+      </ModalContainer>
+    </LoginSection>
   );
 }
 
