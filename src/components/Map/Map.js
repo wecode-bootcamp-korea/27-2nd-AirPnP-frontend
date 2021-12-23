@@ -17,7 +17,7 @@ const Map = ({ longitude, latitude, posts, filterListByMap }) => {
           result[i.address].count += 1;
         } else {
           result[i.address] = {
-            count: 0,
+            count: 1,
             latitude: i.latitude,
             longitude: i.longitude,
           };
