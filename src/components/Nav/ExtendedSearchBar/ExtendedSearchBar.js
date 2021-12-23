@@ -11,12 +11,16 @@ const ExtendedSearchBar = ({ setIsSearchExtend }) => {
     startDate: new Date(),
     endDate: new Date(),
   });
-  const [isDisappear, setIsDisappear] = useState(false);
+  const [isDisappear, setIsDisappear] = useState(ANIMATION_APPEAR);
   const [isAutoCompleteOpen, setIsAutoCompleteOpen] = useState(false);
   const categoryInputRef = useRef();
   const navigate = useNavigate();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    setTimeout(() => {
+      setIsDisappear(ANIMATION_NONE);
+    }, 600);
+  }, []);
 
   const adjustDate = (type, date) => {
     if (type === 'startDate' && date > dateInput.endDate) {
@@ -54,7 +58,7 @@ const ExtendedSearchBar = ({ setIsSearchExtend }) => {
   };
 
   const disappearNav = () => {
-    setIsDisappear(true);
+    setIsDisappear(ANIMATION_DISAPPEAR);
     setTimeout(() => {
       setIsSearchExtend(false);
     }, 600);
@@ -98,6 +102,10 @@ const ExtendedSearchBar = ({ setIsSearchExtend }) => {
 
 export default ExtendedSearchBar;
 
+const ANIMATION_DISAPPEAR = 'disappear';
+const ANIMATION_APPEAR = 'appear';
+const ANIMATION_NONE = '';
+
 const BackGround = styled.div`
   position: fixed;
   top: 0;
@@ -106,7 +114,11 @@ const BackGround = styled.div`
   right: 0;
   background-color: rgba(0, 0, 0, 0.5);
   animation: ${({ isDisappear }) =>
-      isDisappear ? BackgroundDisappear : BackgroundAppear}
+      !isDisappear
+        ? ''
+        : isDisappear === 'disappear'
+        ? BackgroundDisappear
+        : BackgroundAppear}
     0.6s ease;
   z-index: 997;
 `;
@@ -122,8 +134,9 @@ const SearchPannel = styled.form`
   border: 1px solid ${({ theme }) => theme.lightGray};
   border-radius: 45px;
   z-index: 999;
-  animation: ${({ isDisappear }) => (isDisappear ? Disappear : Appear)} 0.6s
-    ease;
+  animation: ${({ isDisappear }) =>
+      !isDisappear ? '' : isDisappear === 'disappear' ? Disappear : Appear}
+    0.6s ease;
 `;
 
 const PannelButton = styled.div`
