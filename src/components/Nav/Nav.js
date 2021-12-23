@@ -49,7 +49,11 @@ const Nav = () => {
         )}
         {isModalOpen && <Login modalClose={modalClose} />}
         <MenuContainer>
-          <ToHost onClick={() => navigate('/host-register')}>
+          <ToHost
+            onClick={() =>
+              token ? navigate('host-register') : alert('로그인이 필요합니다')
+            }
+          >
             호스트 등록
           </ToHost>
           <ExtentionMenu onClick={() => setIsMenuExtend(prev => !prev)}>
@@ -69,7 +73,13 @@ const Nav = () => {
                       로그아웃
                     </LoginListElement>
                   )}
-                  <ListElement onClick={() => navigate('host-register')}>
+                  <ListElement
+                    onClick={() =>
+                      token
+                        ? navigate('host-register')
+                        : alert('로그인이 필요합니다')
+                    }
+                  >
                     호스트 등록
                   </ListElement>
                   <ListElement>마이페이지</ListElement>

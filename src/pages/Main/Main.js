@@ -7,7 +7,6 @@ function Main() {
       <MainContainer>
         <MainImg alt="main-image" src="image/Main/airpnp-main.jpg" />
         <MainHeader>에어피앤피가 당신이 필요한 분을 찾아드릴게요!</MainHeader>
-        <MainButton>유연한 검색</MainButton>
       </MainContainer>
     </MainWrapper>
   );
@@ -21,6 +20,7 @@ const MainWrapper = styled.main`
   height: 100vh;
   background-color: black;
 `;
+
 const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -43,21 +43,6 @@ const MainHeader = styled.h1`
   bottom: 250px;
   color: white;
   font-size: 45px;
-`;
-
-const MainButton = styled.button`
-  position: absolute;
-  bottom: 100px;
-  width: 180px;
-  height: 70px;
-  border: none;
-  border-radius: 100px;
-  background-color: white;
-  margin-right: 10px;
-  font-size: 20px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  color: ${props => props.theme.highlight};
 `;
 
 export default Main;

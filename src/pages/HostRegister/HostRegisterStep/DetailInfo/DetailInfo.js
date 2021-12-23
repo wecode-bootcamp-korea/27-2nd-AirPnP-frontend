@@ -80,10 +80,10 @@ const DetailInfoWrapper = styled.div`
   align-items: center;
   flex-direction: column;
   -ms-overflow-style: none;
-  padding: 300px 0 10px;
+  padding: 300px 0 100px;
   width: 100%;
   height: 86%;
-  overflow: auto;
+  overflow: scroll;
 
   &::-webkit-scrollbar {
     display: none;
