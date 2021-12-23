@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://10.58.5.53:8000';
+export const BASE_URL = 'http://52.78.142.179:8000';
 
 const API_CONFIG = {
   SIGNIN: `${BASE_URL}/users/signin`,

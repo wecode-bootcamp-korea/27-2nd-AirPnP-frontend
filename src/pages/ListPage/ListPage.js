@@ -33,10 +33,12 @@ function ListPage() {
 
   const filterList = category => {
     setFilteredPost(posts.filter(post => post.category === category));
+    setPage(1);
   };
 
   const filterListByMap = address => {
     setFilteredPost(posts.filter(post => post.address === address));
+    setPage(1);
   };
 
   return (
