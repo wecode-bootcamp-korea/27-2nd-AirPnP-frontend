@@ -10,7 +10,7 @@ const DayPicker = ({ type, dateInput, adjustDate }) => {
       selected={type === 'start' ? dateInput.startDate : dateInput.endDate}
       startDate={dateInput.startDate}
       endDate={dateInput.endDate}
-      minDate={type === 'start' ? new Date() : dateInput.startDate}
+      minDate={new Date()}
       dateFormat={DATE_FORMAT}
       dateFormatCalendar={DATE_FORMAT_CALENDAR}
       onChange={date =>

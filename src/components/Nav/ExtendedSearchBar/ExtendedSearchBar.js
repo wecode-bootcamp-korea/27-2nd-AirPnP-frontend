@@ -16,7 +16,14 @@ const ExtendedSearchBar = ({ setIsSearchExtend }) => {
   const navigate = useNavigate();
 
   const adjustDate = (type, date) => {
-    setDateInput(prevDate => ({ ...prevDate, [type]: date }));
+    if (type === 'startDate' && date > dateInput.endDate) {
+      setDateInput({
+        startDate: date,
+        endDate: date,
+      });
+    } else {
+      setDateInput(prevDate => ({ ...prevDate, [type]: date }));
+    }
   };
 
   const changeSearchInput = e => {
@@ -26,14 +33,12 @@ const ExtendedSearchBar = ({ setIsSearchExtend }) => {
   const onSearch = e => {
     e.preventDefault();
     const { startDate, endDate } = dateInput;
-    const term = Math.round((endDate - startDate) / (24 * 60 * 60 * 1000));
-    term >= 0
-      ? navigate(
-          `/list?start=${parseDate(startDate)}&end=${parseDate(
-            endDate
-          )}&category=${searchInput}&term=${term}`
-        )
-      : alert('날짜를 확인하세요');
+    const term = Math.round((endDate - startDate) / (24 * 60 * 60 * 1000)) + 1;
+    navigate(
+      `/list?start=${parseDate(startDate)}&end=${parseDate(
+        endDate
+      )}&category=${searchInput}&term=${term}`
+    );
     setIsSearchExtend(false);
   };
 
