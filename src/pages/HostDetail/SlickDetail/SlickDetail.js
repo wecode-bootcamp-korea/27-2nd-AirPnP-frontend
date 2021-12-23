@@ -6,23 +6,23 @@ import 'slick-carousel/slick/slick-theme.css';
 
 function SlickDetail({ detail }) {
   const settings = {
-    dots: true, // 슬라이드 밑에 점 보이게
-    infinite: true, // 무한으로 반복
+    dots: true,
+    infinite: true,
     speed: 500,
     autoplay: true,
-    autoplaySpeed: 2000, // 넘어가는 속도
-    slidesToShow: 1, // 몇장씩 보이게 할건지?
-    slidesToScroll: 1, // 1장씩 뒤로 넘어가게
+    autoplaySpeed: 2000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
     centerMode: true,
-    centerPadding: '0px', // 0px 하면 슬라이드 끝쪽 이미지가 안잘림
+    centerPadding: '0px',
   };
 
   return (
     <Container>
       <StyledSlider {...settings}>
         {detail.images &&
-          detail.images.map(({ id, src, alt }) => {
-            return <SliderImg key={id} alt={alt} src={src} />;
+          detail.images.map(({ id, image_url, alt }) => {
+            return <SliderImg key={id} alt={alt} src={image_url} />;
           })}
       </StyledSlider>
     </Container>
@@ -32,7 +32,6 @@ const Container = styled.div`
   margin-right: 25px;
 `;
 
-// 슬라이드 CSS
 const StyledSlider = styled(Slider)`
   .slick-list {
     width: 700px;

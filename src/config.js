@@ -5,7 +5,8 @@ const API_CONFIG = {
   HOST_REGISTER: `${BASE_URL}/users/host`,
   HOST_LIST: `${BASE_URL}/users/hosts`,
   HOST_IMAGE: `${BASE_URL}/users/imageUploader`,
-  HOST_DETAIL: `${BASE_URL}/users/hosts/detail`,
+  HOST_DETAIL: `${BASE_URL}/users/hosts/detail/`,
+  BOOKING: `${BASE_URL}/bookings`,
 };
 
 export default API_CONFIG;
