@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { NaverMap, RenderAfterNavermapsLoaded } from 'react-naver-maps';
 import styled from 'styled-components';
 import MapLabel from './CustomMarker/MapLabel';
@@ -9,12 +9,7 @@ const Map = ({ longitude, latitude, posts, filterListByMap }) => {
   const mapRef = useRef();
   const navermaps = window.naver.maps;
 
-  useEffect(() => {
-    setMarker();
-    getLocation();
-  }, []);
-
-  const setMarker = () => {
+  const setMarker = useCallback(() => {
     if (posts) {
       const result = {};
       for (let i of posts) {
@@ -31,9 +26,9 @@ const Map = ({ longitude, latitude, posts, filterListByMap }) => {
 
       setMarkerLocation(Object.entries(result));
     }
-  };
+  }, [posts]);
 
-  const getLocation = () => {
+  const getLocation = useCallback(() => {
     if (longitude && latitude) {
       setGeoInfo({ lat: latitude, lng: longitude });
     } else {
@@ -49,7 +44,12 @@ const Map = ({ longitude, latitude, posts, filterListByMap }) => {
         }
       );
     }
-  };
+  }, [latitude, longitude]);
+
+  useEffect(() => {
+    setMarker();
+    getLocation();
+  }, [setMarker, getLocation]);
 
   return (
     <RenderAfterNavermapsLoaded

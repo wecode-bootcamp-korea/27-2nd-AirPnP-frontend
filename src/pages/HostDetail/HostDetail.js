@@ -92,7 +92,7 @@ function HostDetail() {
       .then(data => {
         setDetail(data.RESULT);
       });
-  }, []);
+  }, [host_id]);
 
   const openModal = () => {
     setShowModal(true);
@@ -229,22 +229,27 @@ function HostDetail() {
                 ? `₩ 총가격:  ${totalPrice} 원`
                 : '요금을 확인하려면 날짜를 입력하세요.'}
             </ReservationTitle>
-            <ReservationDate>
-              <DateBoxStart>
-                <DayPicker
-                  type="start"
-                  dateInput={dateInput}
-                  adjustDate={adjustDate}
-                />
-              </DateBoxStart>
-              <DateBoxEnd>
-                <DayPicker
-                  type="end"
-                  dateInput={dateInput}
-                  adjustDate={adjustDate}
-                />
-              </DateBoxEnd>
-            </ReservationDate>
+            {Object.keys(detail).length && (
+              <ReservationDate>
+                <DateBoxStart>
+                  <DayPicker
+                    type="start"
+                    dateInput={dateInput}
+                    adjustDate={adjustDate}
+                    bookingDate={detail.booking_date}
+                  />
+                </DateBoxStart>
+                <DateBoxEnd>
+                  <DayPicker
+                    type="end"
+                    dateInput={dateInput}
+                    adjustDate={adjustDate}
+                    bookingDate={detail.booking_date}
+                  />
+                </DateBoxEnd>
+              </ReservationDate>
+            )}
+
             <ReservationSubTitle>
               1일 당 / {detail.price} 원
             </ReservationSubTitle>
@@ -569,7 +574,7 @@ const Reservation = styled.div`
   flex-direction: column;
   align-items: center;
   position: sticky;
-  top: 300px;
+  top: 200px;
   width: 400px;
   height: 400px;
   margin: 0 0 30px 50px;
