@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Route, Routes, useNavigate, useParams } from 'react-router-dom';
+import {
+  Route,
+  Routes,
+  useNavigate,
+  useParams,
+  useLocation,
+} from 'react-router-dom';
 import { lighten } from 'polished';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import AddressSelect from './AddressSelect/AddressSelect';
 import CategorySelect from './CategorySelect/CategorySelect';
 import DetailInfo from './DetailInfo/DetailInfo';
@@ -10,21 +17,22 @@ import API_CONFIG from '../../../config';
 
 const HostRegisterStep = () => {
   const [hostInfoList, setHostInfoList] = useState({
-    local_description: '관천로 38',
-    address: '서울 관악구 신림동',
-    category: 'Social worker',
-    title: 'ㅎㅇ',
-    phone_number: '010',
-    career: '3',
-    price: '100000',
-    subtitle: 'ㅎㅇ',
-    description: 'ㅎㅇ',
+    local_description: '',
+    address: '',
+    category: '',
+    title: '',
+    phone_number: '',
+    career: '',
+    price: '',
+    subtitle: '',
+    description: '',
   });
   const [hostImages, setHostImages] = useState([]);
   const [uploadedImages, setUploadedImages] = useState([]);
   const params = useParams();
   const pageType = params['*'];
   const navigate = useNavigate();
+  const location = useLocation();
 
   const token = localStorage.getItem('token') || '';
 
@@ -41,15 +49,19 @@ const HostRegisterStep = () => {
       body: JSON.stringify(hostInfoList),
     });
     const hostResponse = await hostData.json();
-    console.log(hostResponse);
 
-    await fetch(`${API_CONFIG.HOST_IMAGE}?host_id=${hostResponse.host_id}`, {
-      method: 'POST',
-      headers: {
-        Authorization: token,
-      },
-      body: createFormData(),
-    });
+    if (hostResponse.result === 'CREATED') {
+      await fetch(`${API_CONFIG.HOST_IMAGE}?host_id=${hostResponse.host_id}`, {
+        method: 'POST',
+        headers: {
+          Authorization: token,
+        },
+        body: createFormData(),
+      });
+      navigate('/host-register/register-process/complete');
+    } else {
+      alert('호스트 등록에 실패했습니다.\n입력정보를 확인해주세요');
+    }
   };
 
   const createFormData = () => {
@@ -67,7 +79,6 @@ const HostRegisterStep = () => {
       navigate('/host-register/register-process/detail-info');
     } else if (pageType === 'detail-info') {
       fetchData();
-      navigate('/host-register/register-process/complete');
     }
   };
 
@@ -117,45 +128,54 @@ const HostRegisterStep = () => {
         })()}
       </RegisterGuideSection>
       <RegisterStepSection>
-        <Routes>
-          <Route
-            path="/category-type"
-            element={
-              <CategorySelect
-                adjustHostInfo={adjustHostInfo}
-                hostInfoList={hostInfoList}
+        <StyledTransitionGroup>
+          <CSSTransition
+            key={location.pathname}
+            classNames="fade"
+            timeout={400}
+          >
+            <Routes location={location}>
+              <Route
+                path="/category-type"
+                element={
+                  <CategorySelect
+                    adjustHostInfo={adjustHostInfo}
+                    hostInfoList={hostInfoList}
+                  />
+                }
               />
-            }
-          />
-          <Route
-            path="/address-select"
-            element={
-              <AddressSelect
-                adjustHostInfo={adjustHostInfo}
-                hostInfoList={hostInfoList}
+              <Route
+                path="/address-select"
+                element={
+                  <AddressSelect
+                    adjustHostInfo={adjustHostInfo}
+                    hostInfoList={hostInfoList}
+                  />
+                }
               />
-            }
-          />
-          <Route
-            path="/host-image"
-            element={
-              <HostImageUpload
-                setHostImages={setHostImages}
-                uploadedImages={uploadedImages}
-                setUploadedImages={setUploadedImages}
+              <Route
+                path="/host-image"
+                element={
+                  <HostImageUpload
+                    setHostImages={setHostImages}
+                    uploadedImages={uploadedImages}
+                    setUploadedImages={setUploadedImages}
+                  />
+                }
               />
-            }
-          />
-          <Route
-            path="/detail-info"
-            element={
-              <DetailInfo
-                adjustHostInfo={adjustHostInfo}
-                hostInfoList={hostInfoList}
+              <Route
+                path="/detail-info"
+                element={
+                  <DetailInfo
+                    adjustHostInfo={adjustHostInfo}
+                    hostInfoList={hostInfoList}
+                  />
+                }
               />
-            }
-          />
-        </Routes>
+            </Routes>
+          </CSSTransition>
+        </StyledTransitionGroup>
+
         <StepFooter>
           <RegisterButtonContainer>
             <ContinueButton onClick={navigateProcess}>계속</ContinueButton>
@@ -170,6 +190,31 @@ const HostRegisterStep = () => {
 };
 
 export default HostRegisterStep;
+
+const StyledTransitionGroup = styled(TransitionGroup)`
+  height: 100%;
+  overflow: hidden;
+
+  .fade-enter {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  .fade-enter-active {
+    opacity: 1;
+    transition: all 0.4s ease-in;
+    transform: none;
+  }
+
+  .fade-exit {
+    opacity: 1;
+  }
+
+  .fade-exit-active {
+    opacity: 0;
+    transition: all 0.4s ease-in;
+  }
+`;
 
 const RegisterProcessContainer = styled.div`
   display: flex;
