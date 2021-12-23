@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import styled from 'styled-components';
+import React, { useState, useRef, useEffect } from 'react';
+import styled, { keyframes } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { BiSearch } from 'react-icons/bi';
 import AutoCompleteInput from './AutoCompleteInput/AutoCompleteInput';
@@ -11,9 +11,12 @@ const ExtendedSearchBar = ({ setIsSearchExtend }) => {
     startDate: new Date(),
     endDate: new Date(),
   });
+  const [isDisappear, setIsDisappear] = useState(false);
   const [isAutoCompleteOpen, setIsAutoCompleteOpen] = useState(false);
   const categoryInputRef = useRef();
   const navigate = useNavigate();
+
+  useEffect(() => {}, []);
 
   const adjustDate = (type, date) => {
     if (type === 'startDate' && date > dateInput.endDate) {
@@ -50,10 +53,17 @@ const ExtendedSearchBar = ({ setIsSearchExtend }) => {
     return year + '-' + month + '-' + day;
   };
 
+  const disappearNav = () => {
+    setIsDisappear(true);
+    setTimeout(() => {
+      setIsSearchExtend(false);
+    }, 600);
+  };
+
   return (
     <>
-      <BackGround onClick={() => setIsSearchExtend(false)} />
-      <SearchPannel>
+      <BackGround onClick={disappearNav} isDisappear={isDisappear} />
+      <SearchPannel isDisappear={isDisappear}>
         <PannelButton onClick={() => categoryInputRef.current.focus()}>
           <ButtonName>재능</ButtonName>
           <CategoryInput
@@ -95,6 +105,9 @@ const BackGround = styled.div`
   bottom: 0;
   right: 0;
   background-color: rgba(0, 0, 0, 0.5);
+  animation: ${({ isDisappear }) =>
+      isDisappear ? BackgroundDisappear : BackgroundAppear}
+    0.6s ease;
   z-index: 997;
 `;
 
@@ -109,6 +122,8 @@ const SearchPannel = styled.form`
   border: 1px solid ${({ theme }) => theme.lightGray};
   border-radius: 45px;
   z-index: 999;
+  animation: ${({ isDisappear }) => (isDisappear ? Disappear : Appear)} 0.6s
+    ease;
 `;
 
 const PannelButton = styled.div`
@@ -126,6 +141,44 @@ const PannelButton = styled.div`
 
   &:hover {
     box-shadow: 0 0 3px 0 ${({ theme }) => theme.middleGray};
+  }
+`;
+
+const Appear = keyframes`
+  0%{
+    opacity: 0;
+    top: 70px;
+  }
+  100% {
+    opacity:1;
+  }
+`;
+
+const BackgroundAppear = keyframes`
+  0%{
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
+const Disappear = keyframes`
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    top: 70px;
+  }
+`;
+
+const BackgroundDisappear = keyframes`
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 `;
 
