@@ -10,15 +10,15 @@ import API_CONFIG from '../../../config';
 
 const HostRegisterStep = () => {
   const [hostInfoList, setHostInfoList] = useState({
-    local_description: '',
-    address: '',
-    category: '',
-    title: '',
-    phone_number: '',
-    career: '',
-    price: '',
-    subtitle: '',
-    description: '',
+    local_description: '관천로 38',
+    address: '서울 관악구 신림동',
+    category: 'Social worker',
+    title: 'ㅎㅇ',
+    phone_number: '010',
+    career: '3',
+    price: '100000',
+    subtitle: 'ㅎㅇ',
+    description: 'ㅎㅇ',
   });
   const [hostImages, setHostImages] = useState([]);
   const [uploadedImages, setUploadedImages] = useState([]);
@@ -41,6 +41,7 @@ const HostRegisterStep = () => {
       body: JSON.stringify(hostInfoList),
     });
     const hostResponse = await hostData.json();
+    console.log(hostResponse);
 
     await fetch(`${API_CONFIG.HOST_IMAGE}?host_id=${hostResponse.host_id}`, {
       method: 'POST',

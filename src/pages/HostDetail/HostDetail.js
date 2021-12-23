@@ -20,20 +20,20 @@ function HostDetail() {
   const [detail, setDetail] = useState({});
   const [showModal, setShowModal] = useState(false);
 
-  useEffect(() => {
-    fetch('/Data/detailData.json')
-      .then(res => res.json())
-      .then(data => setDetail(data.result[0]));
-  }, []);
-
   // useEffect(() => {
-  //   fetch(`http://10.58.0.48:8000/users/hosts/detail/${host_id}`)
+  //   fetch('/Data/detailData.json')
   //     .then(res => res.json())
-  //     .then(data => {
-  //       console.log(data);
-  //       setDetail(data.result);
-  //     });
+  //     .then(data => setDetail(data.result[0]));
   // }, []);
+
+  useEffect(() => {
+    fetch(`http://10.58.0.48:8000/users/hosts/detail/${3}`)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        setDetail(data.result);
+      });
+  }, []);
 
   const openModal = () => {
     setShowModal(true);
