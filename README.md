@@ -46,12 +46,19 @@
 
 ### Resource
 
-- 홈페이지 - 배포 전
+- [홈페이지](http://air-pnp.s3-website.ap-northeast-2.amazonaws.com)
 - [Frontend Github](https://github.com/wecode-bootcamp-korea/27-2nd-AirPnP-frontend)
 - [Backend Github](https://github.com/wecode-bootcamp-korea/27-2nd-AirPnP-backend)
 - [백엔드 API 명세서](https://docs.google.com/spreadsheets/d/13lN96EICsWmgxzHQCBqDGXE2Bxc1LshyV1XEfqyjpXg/edit#gid=982449144)
 - [Trello](https://trello.com/b/j5vWRW3R)
 - [Notion](https://www.notion.so/c1835beb5b48420fad09622a1a5e5c67)
+
+---
+
+### Preview
+
+[![airpnp](https://i.ytimg.com/an_webp/fRfMZ1xvpuI/mqdefault_6s.webp?du=3000&sqp=CODSlY4G&rs=AOn4CLB28N9pm0deOfdEAjqry821toWgvA)](https://youtu.be/fRfMZ1xvpuI)
+
 
 ---
 
