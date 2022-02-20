@@ -1,17 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import GetPost from '../../../../components/GetPost/GetPost';
+import useAddressSelect from './useAddressSelect';
 
 function AddressSelect({ hostInfoList, adjustHostInfo }) {
-  const [isPopup, setIsPopup] = useState(false);
-
-  const changeLocalDescription = e => {
-    adjustHostInfo('local_description', e.target.value);
-  };
-
-  const closePopup = () => {
-    setIsPopup(false);
-  };
+  const { isPopup, setIsPopup, changeLocalDescription, closePopup } =
+    useAddressSelect(adjustHostInfo);
 
   return (
     <AddressWrapper>
