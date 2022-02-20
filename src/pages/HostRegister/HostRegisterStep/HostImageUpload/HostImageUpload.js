@@ -1,28 +1,17 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import styled from 'styled-components';
+import useHostImageUpload from './useHostImageUpload';
 
 const HostImageUpload = ({
   setHostImages,
   uploadedImages,
   setUploadedImages,
 }) => {
-  const keyIndex = useRef(0);
-  const imageInputRef = useRef();
-
-  const handdleFile = ({ target }) => {
-    const images = [...target.files];
-    const imageUrls = [...uploadedImages];
-    images.forEach(image =>
-      imageUrls.push({
-        id: keyIndex.current++,
-        url: URL.createObjectURL(image),
-        name: image.name,
-      })
-    );
-
-    setUploadedImages(imageUrls);
-    setHostImages(prev => [...prev, ...target.files]);
-  };
+  const { imageInputRef, handdleFile } = useHostImageUpload(
+    uploadedImages,
+    setUploadedImages,
+    setHostImages
+  );
 
   return (
     <ImageUploadWrapper>
